@@ -1,29 +1,27 @@
-function getModel() {
-    let model = (function () {
-        let numA, numB, result
-
-        function init(selectorA, selectorB, resultSelector) {
-            numA = $('#' + selectorA)
-            numB = $('#' + selectorB)
-            result = $('#' + resultSelector)
+function solution() {
+    let numA, numB, result
+    return {
+        init: function (selectorA, selectorB, resultSelector) {
+            numA = $(selectorA)
+            numB = $(selectorB)
+            result = $(resultSelector)
+        },
+        add: function (){
+            result.val(Number(numA.val()) + Number(numB.val()))
+        },
+        subtract: function () {
+            result.val(Number(numA.val()) - Number(numB.val()))
         }
+    }
+}
 
-        function add() {
-            performAction((a,b) => a + b)
-        }
 
-        function subtract() {
-            performAction((a,b) => a - b)
-        }
-
-        function performAction(action) {
-            let res = action(Number(numA.val()), Number(numB.val()))
-            result.val(res)
-        }
-        return {init, add, subtract}
-    })()
-
-    model.init('num1', 'num2', 'result')
-    $('#sumButton').click(model.add)
-    $('#subtractButton').click(model.subtract)
+let obj = solution()
+function sum() {
+    obj.init('#num1', '#num2', '#result')
+    obj.add()
+}
+function sub() {
+    obj.init('#num1', '#num2', '#result')
+    obj.subtract()
 }
